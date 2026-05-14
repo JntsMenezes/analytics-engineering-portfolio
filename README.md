@@ -25,10 +25,10 @@ Este repositório documenta cases reais de projetos de dados com foco em:
 | # | Projeto | Domínio | Complexidade | Status |
 |---|---|---|---|---|
 | 01 | [CRM Analytics & Governance Audit](./cases/01-crm-analytics/) | CRM / Fidelidade | ★★★★★ | ✅ Documentado |
-| 02 | [Retail Loss Intelligence Platform](./cases/02-loss-analytics/) | Varejo / Perdas | ★★★★☆ | 🔄 Em breve |
-| 03 | [Legal & Labor Process Intelligence](./cases/03-legal-analytics/) | Jurídico / RH | ★★★★☆ | 🔄 Em breve |
-| 04 | [People Analytics & Workforce Intelligence](./cases/04-hr-analytics/) | RH / Pessoas | ★★★☆☆ | 🔄 Em breve |
-| 05 | [Daily Operations Command Center](./cases/05-operations-analytics/) | Operações / Varejo | ★★★☆☆ | 🔄 Em breve |
+| 02 | [Retail Loss Intelligence Platform](./cases/02-loss-analytics/) | Varejo / Perdas | ★★★★☆ | ✅ Documentado |
+| 03 | [Legal & Labor Process Intelligence](./cases/03-legal-analytics/) | Jurídico / RH | ★★★★☆ | ✅ Documentado |
+| 04 | [People Analytics & Workforce Intelligence](./cases/04-hr-analytics/) | RH / Pessoas | ★★★☆☆ | ✅ Documentado |
+| 05 | [Daily Operations Command Center](./cases/05-operations-analytics/) | Operações / Varejo | ★★★☆☆ | ✅ Documentado |
 
 ---
 
