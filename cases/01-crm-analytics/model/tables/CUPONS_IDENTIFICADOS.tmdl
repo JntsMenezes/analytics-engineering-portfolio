@@ -1,0 +1,524 @@
+﻿table CUPONS_IDENTIFICADOS
+
+	measure 'Faturamento Rede' =
+			
+			
+			SUM(CUPONS_IDENTIFICADOS[VENDA_LIQUIDA])
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cupons Identificados.' = ```
+			
+			CALCULATE(DISTINCTCOUNT(CUPONS_IDENTIFICADOS[CUPOM_CHAVE]),NOT(ISBLANK(CUPONS_IDENTIFICADOS[IDENTIFICACAO])))
+			
+			```
+		formatString: 0
+
+	measure 'CPF''S Unicos' =
+			
+			
+			CALCULATE(DISTINCTCOUNT(CUPONS_IDENTIFICADOS[INSCRICAO_FEDERAL]))
+		formatString: 0
+
+	measure 'Faturamento Identificado' = ```
+			
+			CALCULATE(
+			    SUM(CUPONS_IDENTIFICADOS[VENDA_LIQUIDA]),
+			    FILTER(
+			        CUPONS_IDENTIFICADOS,
+			        NOT(ISBLANK(CUPONS_IDENTIFICADOS[IDENTIFICACAO]))
+			    )
+			)
+			
+			```
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Medida
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Frequencia Média' = ```
+			
+			
+			
+			VAR TotalClientes =
+			DISTINCTCOUNT(CUPONS_IDENTIFICADOS[INSCRICAO_FEDERAL])
+			VAR TotalCuponsUnicos =
+			[Cupons Identificados.]
+			RETURN
+			DIVIDE(TotalCuponsUnicos, TotalClientes)
+			
+			```
+		formatString: 0.00
+
+	measure 'Gasto Médio Identificados' =
+			
+			
+			var venda = [Faturamento Identificado]
+			
+			var clientes = CALCULATE(DISTINCTCOUNT(CUPONS_IDENTIFICADOS[INSCRICAO_FEDERAL]))
+			
+			
+			RETURN
+			
+			DIVIDE(venda,clientes,BLANK())
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Cupons Identificados' =
+			
+			
+			DIVIDE([Cupons Identificados.],[Cupons Rede],BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+
+	measure '% Faturamento Identificado' =
+			
+			
+			DIVIDE([Faturamento Identificado],[Faturamento Rede],BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+
+	measure 'Ticket Médio Rede' = ```
+			
+			
+			var soma = [Faturamento Rede]
+			
+			var cupom = [Cupons Rede]
+			
+			RETURN
+			
+			DIVIDE(soma,cupom,BLANK())
+			
+			```
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Recorrência Média (Dias)' =
+			
+			VAR ClientesComMaisDeUmaCompra =
+			    ADDCOLUMNS(
+			        SUMMARIZE(
+			            FILTER(
+			                CUPONS_IDENTIFICADOS,
+			                NOT ISBLANK(CUPONS_IDENTIFICADOS[INSCRICAO_FEDERAL])
+			            ),
+			            CUPONS_IDENTIFICADOS[INSCRICAO_FEDERAL]
+			        ),
+			        "QtdCompras", CALCULATE(DISTINCTCOUNT(CUPONS_IDENTIFICADOS[MOVIMENTO])),
+			        "PrimeiraCompra", CALCULATE(MIN(CUPONS_IDENTIFICADOS[MOVIMENTO])),
+			        "UltimaCompra", CALCULATE(MAX(CUPONS_IDENTIFICADOS[MOVIMENTO]))
+			    )
+			
+			VAR ClientesValidos =
+			    FILTER(ClientesComMaisDeUmaCompra, [QtdCompras] > 1)
+			
+			VAR Intervalos =
+			    ADDCOLUMNS(
+			        ClientesValidos,
+			        "DiasEntre",
+			            DIVIDE(
+			                DATEDIFF([PrimeiraCompra], [UltimaCompra], DAY),
+			                [QtdCompras] - 1,
+			                BLANK()
+			            )
+			    )
+			
+			RETURN
+			ROUND(AVERAGEX(Intervalos, [DiasEntre]), 1)
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Recorrencia Md Dias' = ```
+			
+			VAR A = [Recorrência Média (Dias)]
+			VAR Classificacao =
+			    SWITCH(
+			        TRUE(),
+			        A > 70, "Alto ⬆️",
+			        A >= 50, "Média ↔️",
+			        A > 0, "Baixa ⬇️",
+			        BLANK()
+			    )
+			RETURN
+			IF(
+			    NOT(ISBLANK(A)),
+			    FORMAT(A, "0.0") & " - " & Classificacao,
+			    BLANK()
+			)
+			
+			```
+
+	measure 'Itens Cupom' = ```
+			
+			DIVIDE(
+			    COUNT(CUPONS_IDENTIFICADOS[PRODUTO]),
+			    DISTINCTCOUNT(CUPONS_IDENTIFICADOS[CUPOM_CHAVE])
+			)
+			
+			```
+		formatString: 0.0
+
+	measure '% CP CONVENIO' =
+			
+			
+			VAR NFP =
+			CALCULATE(DISTINCTCOUNT(CUPONS_IDENTIFICADOS[CUPOM_CHAVE]),CUPONS_IDENTIFICADOS[IDENTIFICACAO] = "CONVENIO")
+			
+			RETURN
+			
+			DIVIDE(NFP,[Cupons Rede],BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+
+	measure '% Cupons Identificados NFP' = ```
+			
+			
+			VAR NFP =
+			CALCULATE(DISTINCTCOUNT(CUPONS_IDENTIFICADOS[CUPOM_CHAVE]),CUPONS_IDENTIFICADOS[IDENTIFICACAO] = "NFP")
+			
+			RETURN
+			
+			DIVIDE(NFP,[Cupons Rede],BLANK())
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+
+	measure '% CP PROMOCLUBE' =
+			
+			
+			VAR NFP =
+			CALCULATE(DISTINCTCOUNT(CUPONS_IDENTIFICADOS[CUPOM_CHAVE]),CUPONS_IDENTIFICADOS[IDENTIFICACAO] = "PROMOCLUBE")
+			
+			RETURN
+			
+			DIVIDE(NFP,[Cupons Rede],BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+
+	measure 'Medida 2'
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure '% Clientes Base' =
+			
+			
+			VAR NFP =
+			CALCULATE(DISTINCTCOUNT(CUPONS_IDENTIFICADOS[CUPOM_CHAVE]),CUPONS_IDENTIFICADOS[IDENTIFICACAO] = "CLIENTE_BASE")
+			
+			RETURN
+			
+			DIVIDE(NFP,[Cupons Rede],BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+
+	measure '% Cupons Marcas' = ```
+			
+			
+			VAR AAA = CALCULATE([Cupons Identificados.], REMOVEFILTERS(PRODUTO[MARCA]))
+			
+			VAR ABB = [Cupons Identificados.]
+			
+			RETURN
+			
+			DIVIDE(ABB,AAA,BLANK())
+			
+			
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+
+	measure Omnichannel = ```
+			
+			VAR Clientes990 =
+			    DISTINCT(SELECTCOLUMNS(
+			        FILTER(CUPONS_IDENTIFICADOS, CUPONS_IDENTIFICADOS[LOJA] = 990),
+			        "CPF", CUPONS_IDENTIFICADOS[INSCRICAO_FEDERAL]
+			    ))
+			
+			VAR ClientesLojas500 =
+			    DISTINCT(SELECTCOLUMNS(
+			        FILTER(CUPONS_IDENTIFICADOS, CUPONS_IDENTIFICADOS[LOJA] <= 500),
+			        "CPF", CUPONS_IDENTIFICADOS[INSCRICAO_FEDERAL]
+			    ))
+			
+			VAR ClientesAmbos =
+			    INTERSECT(Clientes990, ClientesLojas500)
+			
+			RETURN
+			COUNTROWS(ClientesAmbos)
+			
+			
+			```
+		formatString: 0
+
+	measure 'Categorias Cupom' = ```
+			
+			VAR Resumo =
+			    SUMMARIZE(
+			        CUPONS_IDENTIFICADOS,
+			        CUPONS_IDENTIFICADOS[CUPOM_CHAVE],
+			        "QtdSecoes", DISTINCTCOUNT(CUPONS_IDENTIFICADOS[SECAO_PRODUTO])
+			    )
+			RETURN
+			AVERAGEX(Resumo, [QtdSecoes])
+			
+			
+			```
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Secoes = ```
+			
+			CALCULATE(
+			DISTINCTCOUNT(PRODUTO[SECAO_PRODUTO]),REMOVEFILTERS(CUPONS_IDENTIFICADOS[CUPOM_CHAVE]))
+			
+			```
+		formatString: 0
+
+	measure '% PromoClube X Total' = ```
+			
+			
+			var A1 = CALCULATE(SUM(CUPONS_IDENTIFICADOS[VENDA_LIQUIDA]),CUPONS_IDENTIFICADOS[PROMOCLUBE] = "S")
+			VAR A2 = SUM(CUPONS_IDENTIFICADOS[VENDA_LIQUIDA])
+			
+			
+			RETURN
+			
+			DIVIDE(A1,A2,BLANK())
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+
+	measure 'Faturamento Clube' =
+			
+			CALCULATE(SUM(CUPONS_IDENTIFICADOS[VENDA_LIQUIDA]),CUPONS_IDENTIFICADOS[PROMOCLUBE] = "S")
+		formatString: "R$"#,0.00;-"R$"#,0.00;"R$"#,0.00
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	measure 'FATURAMENTO IDENTIFICADOS CLUBE' =
+			
+			
+			CALCULATE(SUM(CUPONS_IDENTIFICADOS[VENDA_LIQUIDA]),CUPONS_IDENTIFICADOS[IDENTIFICACAO] = "PROMOCLUBE")
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% FAT CLUBE X REDE' =
+			
+			
+			DIVIDE([FATURAMENTO IDENTIFICADOS CLUBE]
+			, [Faturamento Rede],BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+
+	measure 'Produtos Clube' = ```
+			
+			
+			CALCULATE(DISTINCTCOUNT(CUPONS_IDENTIFICADOS[PRODUTO]), CUPONS_IDENTIFICADOS[PROMOCLUBE] = "S")
+			
+			```
+		formatString: 0
+
+	measure 'Cupons Rede' =
+			
+			
+			DISTINCTCOUNT(CUPONS_IDENTIFICADOS[CUPOM_CHAVE])
+		formatString: 0
+
+	column ID
+		dataType: int64
+		formatString: 0
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column LOJA
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: LOJA
+
+		annotation SummarizationSetBy = Automatic
+
+	column CAIXA
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: CAIXA
+
+		annotation SummarizationSetBy = Automatic
+
+	column MOVIMENTO
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		summarizeBy: none
+		sourceColumn: MOVIMENTO
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column DATA_HORA_VENDA
+		dataType: dateTime
+		formatString: Short Date
+		summarizeBy: none
+		sourceColumn: DATA_HORA_VENDA
+
+		variation Variation
+			isDefault
+			relationship: 622b283c-e265-4601-b574-be1ce034c0b1
+			defaultHierarchy: LocalDateTable_720fec08-92e9-4b15-ad83-c14eec9111d2.'Hierarquia de datas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DOCUMENTO_NUMERO
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: DOCUMENTO_NUMERO
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUPOM_CHAVE
+		dataType: string
+		summarizeBy: none
+		sourceColumn: CUPOM_CHAVE
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUTO
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column VENDEDOR
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: VENDEDOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column VENDA_LIQUIDA
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: VENDA_LIQUIDA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QTDE
+		dataType: double
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: QTDE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column LUCRO
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: LUCRO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ENTIDADE
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: ENTIDADE
+
+		annotation SummarizationSetBy = Automatic
+
+	column INSCRICAO_FEDERAL
+		dataType: string
+		summarizeBy: none
+		sourceColumn: INSCRICAO_FEDERAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column IDENTIFICACAO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: IDENTIFICACAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column UNIDADE_NEGOCIO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: UNIDADE_NEGOCIO
+
+		annotation SummarizationSetBy = Automatic
+
+	column PREVENDA_CUPOM
+		dataType: string
+		summarizeBy: none
+		sourceColumn: PREVENDA_CUPOM
+
+		annotation SummarizationSetBy = Automatic
+
+	column VENDA
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column SECAO_PRODUTO
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: SECAO_PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column OPERADOR
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: OPERADOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column PROMOCLUBE
+		dataType: string
+		summarizeBy: none
+		sourceColumn: PROMOCLUBE
+
+		annotation SummarizationSetBy = Automatic
+
+	column PERFIL
+		dataType: string
+		summarizeBy: none
+		sourceColumn: PERFIL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CUPONS_IDENTIFICADOS = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Database("analytics-db-server.internal", "analytics_database", [Query="#(lf)#(lf)SELECT A.*,B.PERFIL FROM dbo.IMPORT_CRM_CUPONS_IDENTIFICADOS a WITH(NOLOCK)#(lf)LEFT JOIN dbo.CRM_HISTORICO_PERFIL_CLIENTE b WITH(NOLOCK) ON B.CPF = A.INSCRICAO_FEDERAL AND A.MOVIMENTO BETWEEN B.INICIO AND B.FIM#(lf)WHERE a.MOVIMENTO >= '01-01-2025'#(lf)#(lf)", CommandTimeout=#duration(0, 0, 40, 0)])
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+

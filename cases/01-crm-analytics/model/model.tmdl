@@ -1,0 +1,46 @@
+﻿model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["PRODUTO","RangeStart","RangeEnd","CUPONS_IDENTIFICADOS","Clientes","Calendario","HST_PERFIL","D_PERFIL","HST_PERFIL_AGRUPADOS","D_CLIENTES"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table DateTableTemplate_86586a27-8d51-4add-92d9-683c0da49948
+ref table PRODUTO
+ref table LocalDateTable_1459c0bc-52bc-4eec-b096-de9fdec1ed4c
+ref table CUPONS_IDENTIFICADOS
+ref table RangeStart
+ref table LocalDateTable_fa9f73d1-a9fe-4a85-bc26-9a93e4ec2294
+ref table RangeEnd
+ref table LocalDateTable_36d2fda1-707b-403f-959f-9203468de4f5
+ref table LocalDateTable_720fec08-92e9-4b15-ad83-c14eec9111d2
+ref table TBL_MOVIMENTO_SECOES
+ref table Clientes
+ref table Calendario
+ref table LocalDateTable_e6f2c80d-d30e-4697-b1ac-e394ffadfc4e
+ref table LocalDateTable_3ced1ba0-050e-423e-899e-58ea3d5b0241
+ref table LocalDateTable_3a47c92f-3d29-424f-be6d-1fd78e17833c
+ref table LocalDateTable_6140c19d-2ce9-4d09-87ec-870ce072a847
+ref table LocalDateTable_395a15a6-6f91-4e93-8aa4-73214e263728
+ref table LocalDateTable_4b464b2c-0071-4376-a8b2-2194563e973f
+ref table LocalDateTable_7d8839d7-a0e6-4459-8486-b391e048fb0e
+ref table LocalDateTable_b39bc2cf-edee-4228-adf1-ca3a22d77950
+ref table LocalDateTable_1f099727-a5c8-43aa-8a13-dfdc786ddf78
+ref table LocalDateTable_9858a072-b6fc-48f7-a8f9-9ba2a7ee871f
+ref table LocalDateTable_7fbe5480-ca55-4e07-aa14-1e639cad3445
+ref table LocalDateTable_f4949bc8-599c-42ed-b2d8-42603ed2f88a
+ref table LocalDateTable_47df0d6c-c005-48f4-beea-ee365846e691
+ref table LocalDateTable_9008f6ab-b6c9-42a0-8f55-7d0b70958618
+ref table D_PERFIL
+ref table HST_PERFIL_AGRUPADOS
+ref table D_CLIENTES
+ref table LocalDateTable_d402ab52-5737-4c97-8c78-6008b594d649
+
+ref cultureInfo pt-BR
+
+

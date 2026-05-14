@@ -1,0 +1,358 @@
+﻿table PRODUTO
+
+	column PRODUTO
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DESCRICAO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: DESCRICAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SECAO_PRODUTO
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: SECAO_PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SECAO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: SECAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column GRUPO_PRODUTO
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: GRUPO_PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column GRUPO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: GRUPO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SUBGRUPO_PRODUTO
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: SUBGRUPO_PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SUBGRUPO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: SUBGRUPO
+
+		annotation SummarizationSetBy = Automatic
+
+	column MARCA_PRODUTO
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: MARCA_PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column MARCA
+		dataType: string
+		summarizeBy: none
+		sourceColumn: MARCA
+
+		annotation SummarizationSetBy = Automatic
+
+	column CLASSE_PRODUTO
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: CLASSE_PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column CLASSE
+		dataType: string
+		summarizeBy: none
+		sourceColumn: CLASSE
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_SECAO_PRODUTO
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: TIPO_SECAO_PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_SECAO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: TIPO_SECAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column FATOR_EMBALAGEM
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: FATOR_EMBALAGEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column EMBALAGEM_INDUSTRIA
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: EMBALAGEM_INDUSTRIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column SITUACAO_PRODUTO
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: SITUACAO_PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SITUACAO_PRODUTO_COMPRA
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: SITUACAO_PRODUTO_COMPRA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DATA_INCLUSAO
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: DATA_INCLUSAO
+
+		variation Variation
+			isDefault
+			relationship: dc339b9b-d9db-4d4f-8d67-d00dc45515df
+			defaultHierarchy: LocalDateTable_1459c0bc-52bc-4eec-b096-de9fdec1ed4c.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column EAN
+		dataType: string
+		summarizeBy: none
+		sourceColumn: EAN
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FAMILIA_PRODUTO
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: COD_FAMILIA_PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column FAMILIA_PRODUTO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: FAMILIA_PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column CADASTRO_ATIVO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: CADASTRO_ATIVO
+
+		annotation SummarizationSetBy = Automatic
+
+	column ENVIAR_LOJAS
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ENVIAR_LOJAS
+
+		annotation SummarizationSetBy = Automatic
+
+	column SITUACAO_REPOSICAO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: SITUACAO_REPOSICAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column ITEM_NOVO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ITEM_NOVO
+
+		annotation SummarizationSetBy = Automatic
+
+	column FALTA_CRONICA
+		dataType: string
+		summarizeBy: none
+		sourceColumn: FALTA_CRONICA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_TIPO_PRECO
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: COD_TIPO_PRECO
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_PRECO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: TIPO_PRECO
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_TIPO_ETIQUETA
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: COD_TIPO_ETIQUETA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TIPO_ETIQUETA
+		dataType: string
+		summarizeBy: none
+		sourceColumn: TIPO_ETIQUETA
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTO_GERENCIAL
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: CUSTO_GERENCIAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CLASSIFICACAO_PRICING
+		dataType: string
+		summarizeBy: none
+		sourceColumn: CLASSIFICACAO_PRICING
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUTO_TARJADO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: PRODUTO_TARJADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column COMERCIALIZAVEL
+		dataType: string
+		summarizeBy: none
+		sourceColumn: COMERCIALIZAVEL
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FABRICANTE
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: COD_FABRICANTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FABRICANTE
+		dataType: string
+		summarizeBy: none
+		sourceColumn: FABRICANTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column CURVA
+		dataType: string
+		summarizeBy: none
+		sourceColumn: CURVA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COMPRADOR_COD
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: COMPRADOR_COD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COMPRADOR_NOME
+		dataType: string
+		summarizeBy: none
+		sourceColumn: COMPRADOR_NOME
+
+		annotation SummarizationSetBy = Automatic
+
+	column CATEGORIA_GC
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: CATEGORIA_GC
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DESCRICAO_CATEGORIA_GC
+		dataType: string
+		summarizeBy: none
+		sourceColumn: DESCRICAO_CATEGORIA_GC
+
+		annotation SummarizationSetBy = Automatic
+
+	column SITUACAO_CADASTRO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: SITUACAO_CADASTRO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cod.Desc'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Cod.Desc
+
+		annotation SummarizationSetBy = Automatic
+
+	partition PRODUTO = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Database("bi-db-server.internal", "bi_database", [Query="#(lf)SELECT * FROM dbo.BI_PRODUTOS A WITH(NOLOCK)"]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"PRODUTO", Int64.Type}}),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Tipo Alterado", "Mesclado", each Text.Combine({Text.From([PRODUTO], "pt-BR"), " - ", Text.Trim([DESCRICAO])}), type text),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Coluna Mesclada Inserida",{{"Mesclado", "Cod.Desc"}})
+				in
+				    #"Colunas Renomeadas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+

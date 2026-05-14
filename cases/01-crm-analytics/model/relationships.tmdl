@@ -1,0 +1,128 @@
+﻿relationship dc339b9b-d9db-4d4f-8d67-d00dc45515df
+	joinOnDateBehavior: datePartOnly
+	fromColumn: PRODUTO.DATA_INCLUSAO
+	toColumn: LocalDateTable_1459c0bc-52bc-4eec-b096-de9fdec1ed4c.Date
+
+relationship 743ce159-c780-4c07-a0ca-eaa6613742ca
+	joinOnDateBehavior: datePartOnly
+	fromColumn: RangeStart.RangeStart
+	toColumn: LocalDateTable_fa9f73d1-a9fe-4a85-bc26-9a93e4ec2294.Date
+
+relationship eba3dceb-1fa3-4be4-97ec-d04c7e5e5fc9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: RangeEnd.RangeEnd
+	toColumn: LocalDateTable_36d2fda1-707b-403f-959f-9203468de4f5.Date
+
+relationship 622b283c-e265-4601-b574-be1ce034c0b1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: CUPONS_IDENTIFICADOS.DATA_HORA_VENDA
+	toColumn: LocalDateTable_720fec08-92e9-4b15-ad83-c14eec9111d2.Date
+
+relationship a827fc47-95d5-d1dd-6701-3fd66dc57d2f
+	fromColumn: CUPONS_IDENTIFICADOS.PRODUTO
+	toColumn: PRODUTO.PRODUTO
+
+relationship 488dac88-37a2-4e1d-b09f-cf8e23a71239
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendario.EODate
+	toColumn: LocalDateTable_e6f2c80d-d30e-4697-b1ac-e394ffadfc4e.Date
+
+relationship bbdde849-dd70-4137-9f46-91c2c0b35667
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendario.SemanaMin_Seg
+	toColumn: LocalDateTable_3ced1ba0-050e-423e-899e-58ea3d5b0241.Date
+
+relationship 3d0db424-8e06-46e6-ab64-7e14958ab2ef
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendario.SemanaMin_Dom
+	toColumn: LocalDateTable_3a47c92f-3d29-424f-be6d-1fd78e17833c.Date
+
+relationship d62785f9-4ace-4f04-b309-c53aecdeca1e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendario.SemanaMax_Seg
+	toColumn: LocalDateTable_6140c19d-2ce9-4d09-87ec-870ce072a847.Date
+
+relationship 7fddfb33-df9c-4845-b63d-02acf92e4a1e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendario.SemanaMax_Dom
+	toColumn: LocalDateTable_395a15a6-6f91-4e93-8aa4-73214e263728.Date
+
+relationship 012f202c-13cc-4b98-af70-1bed31b00fbe
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendario.META_VIGENCIA_INICIAL
+	toColumn: LocalDateTable_4b464b2c-0071-4376-a8b2-2194563e973f.Date
+
+relationship 4545addb-9d5c-4cf4-a207-c606a703c137
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendario.META_VIGENCIA_FINAL
+	toColumn: LocalDateTable_7d8839d7-a0e6-4459-8486-b391e048fb0e.Date
+
+relationship 4acae951-f9b5-4062-b36b-366444feadfd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendario.Dt
+	toColumn: LocalDateTable_b39bc2cf-edee-4228-adf1-ca3a22d77950.Date
+
+relationship 2d4b5e62-6e30-c378-088b-d21b7b0e3396
+	fromColumn: TBL_MOVIMENTO_SECOES.MOVIMENTO
+	toColumn: Calendario.Dt
+
+relationship 745d1207-34a8-2145-c1ef-483fc6ccdc64
+	fromColumn: CUPONS_IDENTIFICADOS.MOVIMENTO
+	toColumn: Calendario.Dt
+
+relationship 792943c1-7fd4-f167-9147-1d965579c84a
+	fromColumn: Clientes.Data
+	toColumn: Calendario.Dt
+
+relationship 7dcc7399-60f7-4b65-86c3-88f445961e88
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Clientes.criado_em
+	toColumn: LocalDateTable_1f099727-a5c8-43aa-8a13-dfdc786ddf78.Date
+
+relationship f77f9806-2986-4c03-b8c8-c36baa388faa
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Clientes.atualizado_em
+	toColumn: LocalDateTable_9858a072-b6fc-48f7-a8f9-9ba2a7ee871f.Date
+
+relationship e7e21629-f6c6-48d1-972e-30c145338e83
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Clientes.data_nascimento
+	toColumn: LocalDateTable_7fbe5480-ca55-4e07-aa14-1e639cad3445.Date
+
+relationship e2a31fb0-a1ab-4100-aa17-30ad4073e74a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Clientes.email_verificado_em
+	toColumn: LocalDateTable_f4949bc8-599c-42ed-b2d8-42603ed2f88a.Date
+
+relationship e0847660-bbaf-460c-b38c-acc537e21dff
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Clientes.celular_verificado_em
+	toColumn: LocalDateTable_47df0d6c-c005-48f4-beea-ee365846e691.Date
+
+relationship b2beac98-916f-4c88-9f91-a9eef99b0c20
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Clientes.pin_code_verificado_em
+	toColumn: LocalDateTable_9008f6ab-b6c9-42a0-8f55-7d0b70958618.Date
+
+relationship AutoDetected_20f177ed-9231-4a6b-b1fb-3404c4e59511
+	fromColumn: HST_PERFIL_AGRUPADOS.PERFIL
+	toColumn: D_PERFIL.PERFIL
+
+relationship d27b79bf-f561-e5a2-c86d-4fa3848920f5
+	fromColumn: HST_PERFIL_AGRUPADOS.DT
+	toColumn: Calendario.Dt
+
+relationship AutoDetected_8a496746-c33a-4c25-8e05-7df06bc3ddff
+	fromColumn: CUPONS_IDENTIFICADOS.PERFIL
+	toColumn: D_PERFIL.PERFIL
+
+relationship 33ed4c59-2b96-4791-9ce5-c1187120fafc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: D_CLIENTES.DT_NASCIMENTO
+	toColumn: LocalDateTable_d402ab52-5737-4c97-8c78-6008b594d649.Date
+
+relationship ab5958a4-00f2-001d-09fc-0eba6d55433b
+	fromColumn: CUPONS_IDENTIFICADOS.INSCRICAO_FEDERAL
+	toColumn: D_CLIENTES.CPF
+
+

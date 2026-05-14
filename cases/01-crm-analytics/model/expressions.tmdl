@@ -1,0 +1,11 @@
+﻿expression HST_PERFIL =
+		let
+		    Fonte = Sql.Database("analytics-db-server.internal", "analytics_database", [Query="SELECT A.*, DATEDIFF(DAY,A.INICIO,A.FIM)+1 AS DIF_DIAS  FROM dbo.CRM_HISTORICO_PERFIL_CLIENTE A WITH(NOLOCK)#(lf)"])
+		in
+		    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+

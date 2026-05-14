@@ -1,0 +1,32 @@
+﻿table D_PERFIL
+
+	column ID
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column PERFIL
+		dataType: string
+		summarizeBy: none
+		sourceColumn: PERFIL
+		sortByColumn: ID
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_PERFIL = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlTSUfLzD/NXitWJVjICctw8XX3AHGMgx9/ZMdjT388RImICFHH1VQjyDHaGqDcFCnj6OYZ4gvTHAgA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [ID = _t, PERFIL = _t])
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+
+

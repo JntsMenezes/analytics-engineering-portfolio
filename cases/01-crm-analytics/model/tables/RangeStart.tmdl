@@ -1,0 +1,24 @@
+﻿table RangeStart
+
+	column RangeStart
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: RangeStart
+
+		variation Variation
+			isDefault
+			relationship: 743ce159-c780-4c07-a0ca-eaa6613742ca
+			defaultHierarchy: LocalDateTable_fa9f73d1-a9fe-4a85-bc26-9a93e4ec2294.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RangeStart = m
+		mode: import
+		source = #datetime(2025, 1, 1, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = DateTime
+
+

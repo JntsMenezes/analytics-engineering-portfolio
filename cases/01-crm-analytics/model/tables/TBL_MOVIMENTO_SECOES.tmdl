@@ -1,0 +1,46 @@
+﻿table TBL_MOVIMENTO_SECOES
+
+	column MOVIMENTO
+		formatString: Short Date
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: CUPONS_IDENTIFICADOS[MOVIMENTO]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column MediaSecoes
+		formatString: 0.0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [MediaSecoes]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TBL_MOVIMENTO_SECOES = calculated
+		mode: import
+		source = ```
+				
+				SUMMARIZE(
+				    CUPONS_IDENTIFICADOS,
+				    CUPONS_IDENTIFICADOS[MOVIMENTO],
+				    "MediaSecoes",
+				        AVERAGEX(
+				            SUMMARIZE(
+				                FILTER(
+				                    CUPONS_IDENTIFICADOS,
+				                    CUPONS_IDENTIFICADOS[MOVIMENTO] = EARLIER(CUPONS_IDENTIFICADOS[MOVIMENTO])
+				                ),
+				                CUPONS_IDENTIFICADOS[CUPOM_CHAVE],
+				                "QtdSecoes", DISTINCTCOUNT(CUPONS_IDENTIFICADOS[SECAO_PRODUTO])
+				            ),
+				            [QtdSecoes]
+				        )
+				)
+				
+				```
+
+	annotation PBI_Id = 99227fe4aae249b19195c920bdef0850
+
+

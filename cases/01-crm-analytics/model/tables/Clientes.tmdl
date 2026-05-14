@@ -1,0 +1,308 @@
+﻿table Clientes
+
+	measure 'Faixa Etária + Ícone' = ```
+			
+			VAR Faixa = SELECTEDVALUE(Clientes[FAIXA_ETARIA])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        Faixa = "Não Informado", "❓ " ,
+			        Faixa = "-18", "🧒 " ,
+			        Faixa = "18-25", "👦 " ,
+			        Faixa = "26-35", "🧑 " ,
+			        Faixa = "36-45", "👨‍💼 " ,
+			        Faixa = "46-55", "👩‍🦳 " ,
+			        Faixa = "56-65", "🧓 " ,
+			        Faixa = "66+", "👴 " ,
+			        "❓ " 
+			    )
+			
+			```
+
+	measure 'Linha Y Cadastro de produtos' = ```
+			
+			
+			CALCULATE(
+			DISTINCTCOUNT(Clientes[cpf]) 
+			,ALL(Clientes))
+			
+			```
+		formatString: 0
+
+	measure 'cpf.' =
+			
+			VAR FILTRO = SELECTEDVALUE(CUPONS_IDENTIFICADOS[LOJA])
+			RETURN
+			IF(
+			    NOT ISBLANK(FILTRO),
+			    CALCULATE(DISTINCTCOUNT(Clientes[cpf]), Clientes[loja] = FILTRO),
+			    DISTINCTCOUNT(Clientes[cpf])
+			)
+		formatString: 0
+
+	column origem_cadastro
+		dataType: string
+		summarizeBy: none
+		sourceColumn: origem_cadastro
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FAIXA_ETARIA
+		dataType: string
+		summarizeBy: none
+		sourceColumn: FAIXA_ETARIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column criado_em
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: criado_em
+
+		variation Variation
+			isDefault
+			relationship: 7dcc7399-60f7-4b65-86c3-88f445961e88
+			defaultHierarchy: LocalDateTable_1f099727-a5c8-43aa-8a13-dfdc786ddf78.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column atualizado_em
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: atualizado_em
+
+		variation Variation
+			isDefault
+			relationship: f77f9806-2986-4c03-b8c8-c36baa388faa
+			defaultHierarchy: LocalDateTable_9858a072-b6fc-48f7-a8f9-9ba2a7ee871f.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column uuid
+		dataType: string
+		summarizeBy: none
+		sourceColumn: uuid
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome
+		dataType: string
+		summarizeBy: none
+		sourceColumn: nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_preferencial
+		dataType: string
+		summarizeBy: none
+		sourceColumn: nome_preferencial
+
+		annotation SummarizationSetBy = Automatic
+
+	column senha
+		dataType: string
+		summarizeBy: none
+		sourceColumn: senha
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column genero
+		dataType: string
+		summarizeBy: none
+		sourceColumn: genero
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpf
+		dataType: string
+		summarizeBy: none
+		sourceColumn: cpf
+
+		annotation SummarizationSetBy = Automatic
+
+	column celular
+		dataType: string
+		summarizeBy: none
+		sourceColumn: celular
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_nascimento
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: data_nascimento
+
+		variation Variation
+			isDefault
+			relationship: e7e21629-f6c6-48d1-972e-30c145338e83
+			defaultHierarchy: LocalDateTable_7fbe5480-ca55-4e07-aa14-1e639cad3445.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column situacao
+		dataType: string
+		summarizeBy: none
+		sourceColumn: situacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column email_verificado_em
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: email_verificado_em
+
+		variation Variation
+			isDefault
+			relationship: e2a31fb0-a1ab-4100-aa17-30ad4073e74a
+			defaultHierarchy: LocalDateTable_f4949bc8-599c-42ed-b2d8-42603ed2f88a.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column token_lembrar_me
+		dataType: string
+		summarizeBy: none
+		sourceColumn: token_lembrar_me
+
+		annotation SummarizationSetBy = Automatic
+
+	column pre_cadastro_cliente_uuid
+		dataType: string
+		summarizeBy: none
+		sourceColumn: pre_cadastro_cliente_uuid
+
+		annotation SummarizationSetBy = Automatic
+
+	column loja
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: loja
+
+		annotation SummarizationSetBy = Automatic
+
+	column vendedor
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column utm_source
+		dataType: string
+		summarizeBy: none
+		sourceColumn: utm_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column utm_medium
+		dataType: string
+		summarizeBy: none
+		sourceColumn: utm_medium
+
+		annotation SummarizationSetBy = Automatic
+
+	column utm_campaign
+		dataType: string
+		summarizeBy: none
+		sourceColumn: utm_campaign
+
+		annotation SummarizationSetBy = Automatic
+
+	column utm_term
+		dataType: string
+		summarizeBy: none
+		sourceColumn: utm_term
+
+		annotation SummarizationSetBy = Automatic
+
+	column utm_content
+		dataType: string
+		summarizeBy: none
+		sourceColumn: utm_content
+
+		annotation SummarizationSetBy = Automatic
+
+	column celular_verificado_em
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: celular_verificado_em
+
+		variation Variation
+			isDefault
+			relationship: e0847660-bbaf-460c-b38c-acc537e21dff
+			defaultHierarchy: LocalDateTable_47df0d6c-c005-48f4-beea-ee365846e691.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column verificado_via
+		dataType: string
+		summarizeBy: none
+		sourceColumn: verificado_via
+
+		annotation SummarizationSetBy = Automatic
+
+	column conta_categoria
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: conta_categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column pin_code_verificado_em
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: pin_code_verificado_em
+
+		variation Variation
+			isDefault
+			relationship: b2beac98-916f-4c88-9f91-a9eef99b0c20
+			defaultHierarchy: LocalDateTable_9008f6ab-b6c9-42a0-8f55-7d0b70958618.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column metadados
+		dataType: string
+		summarizeBy: none
+		sourceColumn: metadados
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Clientes = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Database("crm-db-server.internal", "crm_database", [Query="SELECT#(tab)#(lf)#(tab)A.*#(lf),CASE#(lf)#(tab) WHEN a.data_nascimento IS NULL#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab) THEN 'Não Informado'#(lf)     WHEN DATEDIFF(YEAR, A.DATA_NASCIMENTO, GETDATE()) BETWEEN 18 AND 25 THEN '18-25'#(lf)     WHEN DATEDIFF(YEAR, A.DATA_NASCIMENTO, GETDATE()) BETWEEN 26 AND 35 THEN '26-35'#(lf)     WHEN DATEDIFF(YEAR, A.DATA_NASCIMENTO, GETDATE()) BETWEEN 36 AND 45 THEN '36-45'#(lf)     WHEN DATEDIFF(YEAR, A.DATA_NASCIMENTO, GETDATE()) BETWEEN 46 AND 55 THEN '46-55'#(lf)     WHEN DATEDIFF(YEAR, A.DATA_NASCIMENTO, GETDATE()) BETWEEN 56 AND 65 THEN '56-65'#(lf)     WHEN DATEDIFF(YEAR, A.DATA_NASCIMENTO, GETDATE())              < 18 THEN '-18'#(lf)#(tab) ELSE '66+'#(lf) END AS FAIXA_ETARIA #(lf)#(lf)#(lf)FROM dbo.clientes A WITH(NOLOCK)"]),
+				    #"Data Inserida" = Table.AddColumn(Fonte, "Data", each Date.From([criado_em]), type date)
+				in
+				    #"Data Inserida"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+
+

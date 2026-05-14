@@ -1,0 +1,77 @@
+﻿table D_CLIENTES
+
+	column CPF
+		dataType: string
+		summarizeBy: none
+		sourceColumn: CPF
+
+		annotation SummarizationSetBy = Automatic
+
+	column NOME
+		dataType: string
+		summarizeBy: none
+		sourceColumn: NOME
+
+		annotation SummarizationSetBy = Automatic
+
+	column EMAIL
+		dataType: string
+		summarizeBy: none
+		sourceColumn: EMAIL
+
+		annotation SummarizationSetBy = Automatic
+
+	column CONTATO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: CONTATO
+
+		annotation SummarizationSetBy = Automatic
+
+	column GENERO
+		dataType: string
+		summarizeBy: none
+		sourceColumn: GENERO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_NASCIMENTO
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: DT_NASCIMENTO
+
+		variation Variation
+			isDefault
+			relationship: 33ed4c59-2b96-4791-9ce5-c1187120fafc
+			defaultHierarchy: LocalDateTable_d402ab52-5737-4c97-8c78-6008b594d649.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column CLUBE
+		dataType: string
+		summarizeBy: none
+		sourceColumn: CLUBE
+
+		annotation SummarizationSetBy = Automatic
+
+	column FAIXA_ETARIA
+		dataType: string
+		summarizeBy: none
+		sourceColumn: FAIXA_ETARIA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition D_CLIENTES = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Database("analytics-db-server.internal", "analytics_database", [Query="#(lf)#(lf)#(lf)WITH CLUBE AS (#(lf)    SELECT *#(lf)    FROM (#(lf)        SELECT #(lf)            *,#(lf)            ROW_NUMBER() OVER (#(lf)                PARTITION BY CPF#(lf)                ORDER BY CRIADO_EM ASC#(lf)            ) AS RN#(lf)        FROM [crm-db-server.internal].[crm_database].DBO.CLIENTES WITH (NOLOCK)#(lf)       -- WHERE CPF = [REDACTED]#(lf)    ) X#(lf)    WHERE RN = 1#(lf)),#(lf)#(lf)--SELECT * FROM CLUBE#(lf)#(lf)BASE_PROC AS (#(lf)SELECT INSCRICAO_FEDERAL, MAX(ENTIDADE) AS ENTIDADE FROM dbo.PESSOAS_FISICAS WITH(NOLOCK) GROUP BY INSCRICAO_FEDERAL#(lf)),#(lf)#(lf)EMAIL AS (#(lf)SELECT ENTIDADE, MAX(EMAIL) AS EMAIL FROM dbo.EMAIL WITH(NOLOCK) GROUP BY ENTIDADE #(lf)),#(lf)#(lf)CONTATO1 AS (#(lf)SELECT ENTIDADE, MAX(DDD) AS DDD, MAX(NUMERO) AS NUMERO FROM dbo.TELEFONES GROUP BY ENTIDADE #(lf)),#(lf)#(lf)CONTATO2 AS (#(lf)SELECT ENTIDADE, CONVERT(CHAR(3),DDD) + CONVERT(VARCHAR(10),NUMERO) AS NUMERO FROM CONTATO1#(lf))#(lf)#(lf)#(lf)SELECT DISTINCT#(lf)A.CPF,#(lf)ISNULL(b.nome,f.NOME)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)AS NOME,#(lf)ISNULL(B.EMAIL,D.EMAIL)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)AS EMAIL,#(lf)ISNULL(B.celular,E.NUMERO)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)AS CONTATO,#(lf)CASE #(lf)WHEN ISNULL(B.genero,F.SEXO)#(tab)= 'MASCULINO' THEN 'M'#(lf)WHEN ISNULL(B.genero,F.SEXO)#(tab)= 'FEMINiNO' THEN 'F' END AS GENERO,#(lf)ISNULL(B.data_nascimento,F.DATA_NASCIMENTO)#(tab)#(tab)#(tab)#(tab)AS DT_NASCIMENTO,#(lf)#(lf)CASE#(lf)#(tab) WHEN ISNULL(B.data_nascimento,F.DATA_NASCIMENTO)#(tab) IS NULL#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab) THEN 'Não Informado'#(lf)     WHEN DATEDIFF(YEAR, ISNULL(B.data_nascimento,F.DATA_NASCIMENTO), GETDATE()) BETWEEN 18 AND 25 THEN '18-25'#(lf)     WHEN DATEDIFF(YEAR, ISNULL(B.data_nascimento,F.DATA_NASCIMENTO), GETDATE()) BETWEEN 26 AND 35 THEN '26-35'#(lf)     WHEN DATEDIFF(YEAR, ISNULL(B.data_nascimento,F.DATA_NASCIMENTO), GETDATE()) BETWEEN 36 AND 45 THEN '36-45'#(lf)     WHEN DATEDIFF(YEAR, ISNULL(B.data_nascimento,F.DATA_NASCIMENTO), GETDATE()) BETWEEN 46 AND 55 THEN '46-55'#(lf)     WHEN DATEDIFF(YEAR, ISNULL(B.data_nascimento,F.DATA_NASCIMENTO), GETDATE()) BETWEEN 56 AND 65 THEN '56-65'#(lf)     WHEN DATEDIFF(YEAR, ISNULL(B.data_nascimento,F.DATA_NASCIMENTO), GETDATE())              < 18 THEN '-18'#(lf)#(tab) ELSE '66+'#(lf) END AS FAIXA_ETARIA ,#(lf)#(lf)#(lf)#(lf)CASE WHEN B.cpf = A.CPF THEN 'S' ELSE 'N' END#(tab)AS CLUBE#(lf)#(lf)FROM dbo.CRM_HISTORICO_PERFIL_CLIENTE#(tab)A WITH(NOLOCK)#(lf)LEFT JOIN CLUBE#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)B ON B.CPF#(tab)#(tab)#(tab)#(tab) = A.CPF#(lf)#(tab) JOIN BASE_PROC#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)C ON C.INSCRICAO_FEDERAL = A.CPF#(lf)LEFT JOIN EMAIL#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)D ON D.ENTIDADE#(tab)#(tab)#(tab) = C.ENTIDADE#(lf)LEFT JOIN CONTATO1#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)E ON E.ENTIDADE#(tab)#(tab)#(tab) = C.ENTIDADE#(lf)LEFT JOIN dbo.PESSOAS_FISICAS#(tab)#(tab)#(tab)F ON F.ENTIDADE#(tab)#(tab)#(tab) = C.ENTIDADE#(tab)#(lf)#(lf)WHERE A.CPF <> '   .   .   -  '#(lf)#(lf)#(lf)"])
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+
+

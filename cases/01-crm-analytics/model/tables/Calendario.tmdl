@@ -1,0 +1,291 @@
+﻿table Calendario
+
+	column SK
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: SK
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dt
+		dataType: dateTime
+		formatString: Short Date
+		summarizeBy: none
+		sourceColumn: Dt
+
+		variation Variation
+			isDefault
+			relationship: 4acae951-f9b5-4062-b36b-366444feadfd
+			defaultHierarchy: LocalDateTable_b39bc2cf-edee-4228-adf1-ca3a22d77950.'Hierarquia de datas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Dia
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: Dia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnoMes
+		dataType: string
+		summarizeBy: none
+		sourceColumn: AnoMes
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnoMesTxt
+		dataType: string
+		summarizeBy: none
+		sourceColumn: AnoMesTxt
+		sortByColumn: AnoMes
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesTxt
+		dataType: string
+		summarizeBy: none
+		sourceColumn: MesTxt
+
+		annotation SummarizationSetBy = Automatic
+
+	column EODate
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: EODate
+
+		variation Variation
+			isDefault
+			relationship: 488dac88-37a2-4e1d-b09f-cf8e23a71239
+			defaultHierarchy: LocalDateTable_e6f2c80d-d30e-4697-b1ac-e394ffadfc4e.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column TriNumero
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: TriNumero
+
+		annotation SummarizationSetBy = Automatic
+
+	column TriAnoTxt
+		dataType: string
+		summarizeBy: none
+		sourceColumn: TriAnoTxt
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuadriNumero
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: QuadriNumero
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuadriAno
+		dataType: string
+		summarizeBy: none
+		sourceColumn: QuadriAno
+
+		annotation SummarizationSetBy = Automatic
+
+	column SemanaTxt_Seg
+		dataType: string
+		summarizeBy: none
+		sourceColumn: SemanaTxt_Seg
+
+		annotation SummarizationSetBy = Automatic
+
+	column SemanaTxt_Dom
+		dataType: string
+		summarizeBy: none
+		sourceColumn: SemanaTxt_Dom
+
+		annotation SummarizationSetBy = Automatic
+
+	column SemanaMin_Seg
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: SemanaMin_Seg
+
+		variation Variation
+			isDefault
+			relationship: bbdde849-dd70-4137-9f46-91c2c0b35667
+			defaultHierarchy: LocalDateTable_3ced1ba0-050e-423e-899e-58ea3d5b0241.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column SemanaMin_Dom
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: SemanaMin_Dom
+
+		variation Variation
+			isDefault
+			relationship: 3d0db424-8e06-46e6-ab64-7e14958ab2ef
+			defaultHierarchy: LocalDateTable_3a47c92f-3d29-424f-be6d-1fd78e17833c.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column SemanaMax_Seg
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: SemanaMax_Seg
+
+		variation Variation
+			isDefault
+			relationship: d62785f9-4ace-4f04-b309-c53aecdeca1e
+			defaultHierarchy: LocalDateTable_6140c19d-2ce9-4d09-87ec-870ce072a847.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column SemanaMax_Dom
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: SemanaMax_Dom
+
+		variation Variation
+			isDefault
+			relationship: 7fddfb33-df9c-4845-b63d-02acf92e4a1e
+			defaultHierarchy: LocalDateTable_395a15a6-6f91-4e93-8aa4-73214e263728.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column DvDia
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: DvDia
+
+		annotation SummarizationSetBy = Automatic
+
+	column DvMes
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: DvMes
+
+		annotation SummarizationSetBy = Automatic
+
+	column SemanaTxtOrdem_Seg
+		dataType: string
+		summarizeBy: none
+		sourceColumn: SemanaTxtOrdem_Seg
+
+		annotation SummarizationSetBy = Automatic
+
+	column SemanaTxtOrdem_Dom
+		dataType: string
+		summarizeBy: none
+		sourceColumn: SemanaTxtOrdem_Dom
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiaDaSemana
+		dataType: string
+		summarizeBy: none
+		sourceColumn: DiaDaSemana
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesRank
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: MesRank
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiaUtil
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: DiaUtil
+
+		annotation SummarizationSetBy = Automatic
+
+	column MotivoNaoUtil
+		dataType: string
+		summarizeBy: none
+		sourceColumn: MotivoNaoUtil
+
+		annotation SummarizationSetBy = Automatic
+
+	column DVDiaUtil
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: DVDiaUtil
+
+		annotation SummarizationSetBy = Automatic
+
+	column META_VIGENCIA_INICIAL
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: META_VIGENCIA_INICIAL
+
+		variation Variation
+			isDefault
+			relationship: 012f202c-13cc-4b98-af70-1bed31b00fbe
+			defaultHierarchy: LocalDateTable_4b464b2c-0071-4376-a8b2-2194563e973f.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column META_VIGENCIA_FINAL
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: META_VIGENCIA_FINAL
+
+		variation Variation
+			isDefault
+			relationship: 4545addb-9d5c-4cf4-a207-c606a703c137
+			defaultHierarchy: LocalDateTable_7d8839d7-a0e6-4459-8486-b391e048fb0e.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendario = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Database("bi-db-server.internal", "bi_database", [Query="select * from dim_calendario with(Nolock)#(lf)where dt between '01-01-2025' and Getdate()"])
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+
+

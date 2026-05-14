@@ -1,0 +1,156 @@
+﻿table HST_PERFIL_AGRUPADOS
+
+	measure Clientes = ```
+			
+			
+			VAR MAXDT = MAX(Calendario[Dt])-1
+			
+			
+			RETURN
+			
+			CALCULATE(SUM(HST_PERFIL_AGRUPADOS[QTDE_CPF]), HST_PERFIL_AGRUPADOS[DT] = MAXDT)
+			
+			```
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Compra P.' = ```
+			
+			
+			VAR MAXDT = MAX(Calendario[Dt])-1
+			
+			
+			RETURN
+			
+			
+			CALCULATE(SUM(HST_PERFIL_AGRUPADOS[COMPRAS]), HST_PERFIL_AGRUPADOS[DT] = MAXDT)
+			
+			```
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Qtde P.' = ```
+			
+			
+			VAR MAXDT = MAX(Calendario[Dt])-1
+			
+			
+			RETURN
+			
+			CALCULATE(SUM(HST_PERFIL_AGRUPADOS[QTDE]), HST_PERFIL_AGRUPADOS[DT] = MAXDT)
+			
+			```
+		formatString: 0
+
+	measure 'Cupons P.' = ```
+			
+			
+			VAR MAXDT = MAX(Calendario[Dt])-1
+			
+			
+			RETURN
+			
+			CALCULATE(SUM(HST_PERFIL_AGRUPADOS[CUPONS]), HST_PERFIL_AGRUPADOS[DT] = MAXDT)
+			
+			```
+		formatString: 0
+
+	measure 'Ticket M. P.' = ```
+			
+			
+			
+			DIVIDE([Compra P.],[Cupons P.],0)
+			
+			```
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DT
+		dataType: dateTime
+		formatString: General Date
+		summarizeBy: none
+		sourceColumn: DT
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column PERFIL
+		dataType: string
+		summarizeBy: none
+		sourceColumn: PERFIL
+		sortByColumn: ID
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column QTDE_CPF
+		dataType: double
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: QTDE_CPF
+
+		annotation SummarizationSetBy = Automatic
+
+	column COMPRAS
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: COMPRAS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUPONS
+		dataType: double
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: CUPONS
+
+		annotation SummarizationSetBy = Automatic
+
+	column LUCRO
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: LUCRO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QTDE
+		dataType: double
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: QTDE
+
+		annotation SummarizationSetBy = Automatic
+
+	column ITENS_CUPONS
+		dataType: double
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: ITENS_CUPONS
+
+		annotation SummarizationSetBy = Automatic
+
+	partition HST_PERFIL_AGRUPADOS = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Database("analytics-db-server.internal", "analytics_database", [Query="#(lf)SELECT #(lf)A.DT,#(lf)A.ID,#(lf)A.PERFIL,#(lf)A.QTDE_CPF,#(lf)A.COMPRAS,#(lf)A.CUPONS,#(lf)A.LUCRO,#(lf)A.QTDE,#(lf)A.ITENS_CUPONS#(lf)#(lf)FROM CRM_HISTORICO_PERFIL_CLIENTE_AGRUPADO#(tab)#(tab)A WITH(NOLOCK)#(lf)"])
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
+
