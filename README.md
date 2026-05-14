@@ -44,7 +44,7 @@ Este repositório documenta cases reais de projetos de dados com foco em:
 
 ## Contato
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/jntsmenezes)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jonatas-menezes-jms)
 
 ---
 
